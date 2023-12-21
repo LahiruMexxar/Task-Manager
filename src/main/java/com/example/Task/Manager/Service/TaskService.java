@@ -18,6 +18,9 @@ public class TaskService {
     @Autowired
     private TaskRepo taskRepo;
 
+    public TaskService(TaskRepo taskRepo) {
+        this.taskRepo = taskRepo;
+    }
     public List<Task> getAllTask(){
         return taskRepo.findAll();
     }
@@ -75,6 +78,6 @@ public class TaskService {
         }
     }
     private boolean taskDuplicate (String Title){
-        return taskRepo.existsByName(Title);
+        return taskRepo.existsByTitle(Title);
     }
 }

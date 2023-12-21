@@ -29,11 +29,15 @@ public class TaskController {
         }
     }
 
-    @GetMapping("{/id}")
-    public ResponseEntity<ApiResponse<Optional<Task>>> getTaskByID(@PathVariable Long id){
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<Task>> getTaskByID(@PathVariable Long id){
         try {
             Optional<Task> tasks = taskService.findTaskByID(id);
-            return ResponseEntity.ok(new ApiResponse<>(200,"Tasks Retrived",tasks));
+            if (tasks.isPresent()) {
+                return ResponseEntity.ok(new ApiResponse<>(200, "Task retrieved successfully", tasks.get()));
+            } else {
+                return ResponseEntity.status(404).body(new ApiResponse<>(404, "Task not found", null));
+            }
         }catch (Exception e){
             return ResponseEntity.status(500).body(new ApiResponse<>(500,"Internal Server Error",null));
         }
@@ -44,12 +48,12 @@ public class TaskController {
         return taskService.addTask(task);
     }
 
-    @PutMapping("{/id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<List<Task>>> updateTask(@PathVariable Long id,@RequestBody Task task){
         return taskService.updateTask(task,id);
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<List<Void>>> deleteTask(@PathVariable Long id){
         return taskService.deleteTask(id);
     }
