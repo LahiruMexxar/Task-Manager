@@ -21,7 +21,7 @@ import java.util.List;
 @Testcontainers
 class TaskManagerApplicationTests {
 
-	private MySQLContainer mySQLContainer = new MySQLContainer<>();
+	private static MySQLContainer mySQLContainer = new MySQLContainer<>();
 	@Autowired
 	private TaskRepo taskRepo;
 	@Autowired

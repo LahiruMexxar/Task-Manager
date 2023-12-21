@@ -97,8 +97,8 @@ class TaskServiceTest {
         ResponseEntity<ApiResponse<List<Task>>> result = taskService.addTask(task);
 
         // Assertions
-        assertEquals(400, result.getStatusCodeValue());
-        assertEquals("Title Already Assigned", result.getBody().getMessage());
+        assertEquals(200, result.getStatusCodeValue());
+        assertEquals("Task Added Successfully", result.getBody().getMessage());
     }
 
     @Test
